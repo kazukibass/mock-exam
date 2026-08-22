@@ -14,6 +14,7 @@
   const MAX_EXPLANATION_LEN = 1000;
   const MIN_CHOICES = 2;
   const MAX_CHOICES = 8;
+  const QUESTION_TIME_SEC = 30;
 
   const viewEl = document.getElementById("view");
   const titleEl = document.getElementById("page-title");
@@ -21,6 +22,7 @@
 
   let session = loadSession();
   let pendingImport = null; // { questions, sourceLabel }
+  let quizTimerId = null;
 
   // ---------- storage helpers ----------
 
@@ -159,11 +161,14 @@
     const hash = location.hash.replace(/^#/, "") || "/";
     const parts = hash.split("/").filter(Boolean);
 
+    if (parts[0] !== "quiz") clearQuizTimer();
+
     if (parts[0] === "quiz" && session) return renderQuiz();
     if (parts[0] === "result") return renderResult();
     if (parts[0] === "help") return renderHelp();
     if (parts[0] === "list") return renderSetList();
     if (parts[0] === "import") return renderImportPage();
+    if (parts[0] === "stats") return renderStats();
     if (parts[0] === "history" && parts[1]) return renderSavedResult(parts[1]);
     return renderHome();
   }
@@ -241,6 +246,10 @@
 
     viewEl.innerHTML = `
       <p class="lead">問題集を選んでスタートしましょう。</p>
+      <label class="timer-toggle">
+        <input type="checkbox" id="timer-mode-toggle">
+        制限時間モード（1問${QUESTION_TIME_SEC}秒、時間切れは不正解になります）
+      </label>
       ${sets.length ? `<ul class="set-list">${setItems}</ul>` : `<p class="empty-note">問題集がありません。トップページからインポートしてください。</p>`}
       <p style="margin-top:24px"><a href="#/">トップに戻る</a></p>
     `;
@@ -432,10 +441,31 @@
     const set = getSetById(setId);
     if (!set) { toast("問題集が見つかりません"); return; }
     const order = shuffle((set.questions || []).map((q) => q.id));
+    const timerToggle = document.getElementById("timer-mode-toggle");
+    const timed = !!(timerToggle && timerToggle.checked);
     session = {
       setId, setTitle: set.title,
       order, current: 0, score: 0, history: [],
-      choiceOrder: null,
+      choiceOrder: null, timed,
+    };
+    saveSession();
+    go("#/quiz");
+  }
+
+  function startReviewQuiz(payloadId) {
+    let payload = window.__quiz.__currentPayload;
+    if (!payload || payload.id !== payloadId) {
+      payload = getResultHistory().find((h) => h.id === payloadId);
+    }
+    if (!payload) { toast("結果が見つかりません"); return; }
+    const set = getSetById(payload.setId);
+    if (!set) { toast("元の問題集が見つかりません"); return; }
+    const wrongQids = payload.history.filter((h) => !h.is_correct).map((h) => h.qid);
+    if (!wrongQids.length) { toast("間違えた問題はありません"); return; }
+    session = {
+      setId: payload.setId, setTitle: set.title + "（復習）",
+      order: shuffle(wrongQids), current: 0, score: 0, history: [],
+      choiceOrder: null, timed: false,
     };
     saveSession();
     go("#/quiz");
@@ -470,6 +500,12 @@
 
     viewEl.innerHTML = `
       <div class="progress"><div class="progress-fill" style="width:${pct}%;"></div></div>
+      ${session.timed ? `
+        <div class="quiz-timer">
+          <div class="quiz-timer-bar"><div class="quiz-timer-bar-fill" id="timer-bar-fill" style="width:100%;"></div></div>
+          <p class="quiz-timer-text">残り時間: <span id="timer-value">${QUESTION_TIME_SEC}</span>秒</p>
+        </div>
+      ` : ""}
       <p class="lead">${esc(question.question)}</p>
       ${question.code ? `<pre>${esc(question.code)}</pre>` : ""}
       <form id="quiz-form">
@@ -487,16 +523,41 @@
       if (!picked) { toast("選択肢を選んでください"); return; }
       submitAnswer(qid, parseInt(picked.value, 10));
     });
+
+    if (session.timed) startQuestionTimer(qid);
+  }
+
+  function startQuestionTimer(qid) {
+    clearQuizTimer();
+    let remaining = QUESTION_TIME_SEC;
+    const valueEl = document.getElementById("timer-value");
+    const barEl = document.getElementById("timer-bar-fill");
+    quizTimerId = setInterval(() => {
+      remaining -= 1;
+      if (valueEl) valueEl.textContent = Math.max(0, remaining);
+      if (barEl) barEl.style.width = Math.max(0, (remaining / QUESTION_TIME_SEC) * 100) + "%";
+      if (remaining <= 0) {
+        clearQuizTimer();
+        toast("時間切れです");
+        submitAnswer(qid, -1);
+      }
+    }, 1000);
+  }
+
+  function clearQuizTimer() {
+    if (quizTimerId) { clearInterval(quizTimerId); quizTimerId = null; }
   }
 
   function submitAnswer(qid, selectedIndex) {
+    clearQuizTimer();
     const set = currentSet();
     const qmap = questionsMap(set);
     const question = qmap[qid];
     const choiceOrder = session.choiceOrder || question.choices.map((_, i) => i);
-    const selected = question.choices[choiceOrder[selectedIndex]];
+    const timedOut = selectedIndex < 0;
+    const selected = timedOut ? "（未回答・時間切れ）" : question.choices[choiceOrder[selectedIndex]];
     const correct = question.choices[question.answer - 1];
-    const isCorrect = selected === correct;
+    const isCorrect = !timedOut && selected === correct;
 
     session.history.push({ qid, selected, correct, is_correct: isCorrect });
     if (isCorrect) session.score += 1;
@@ -535,6 +596,7 @@
   }
 
   function abortQuiz() {
+    clearQuizTimer();
     if (location.hash === "#/result") renderResult(); else go("#/result");
   }
 
@@ -612,10 +674,19 @@
         </button>
       </li>`).join("");
 
+    const wrongCount = payload.history.filter((h) => !h.is_correct).length;
+    const reviewBtn = wrongCount
+      ? `<button class="button secondary" onclick="window.__quiz.startReviewQuiz('${payload.id}')">間違えた${wrongCount}問だけ復習する</button>`
+      : "";
+
     const liveActions = opts.live ? `
       <button class="primary" onclick="window.__quiz.startQuiz('${esc(payload.setId)}')">もう一度挑戦する</button>
+      ${reviewBtn}
       <p><a href="#/">トップに戻る</a></p>
-    ` : `<p><a href="#/">トップに戻る</a></p>`;
+    ` : `
+      ${reviewBtn}
+      <p><a href="#/">トップに戻る</a></p>
+    `;
 
     viewEl.innerHTML = `
       ${summary}
@@ -750,6 +821,62 @@ JSON配列、または次の形式のオブジェクトのどちらかで出力�
     downloadBlob("import_prompt.txt", IMPORT_PROMPT_TEMPLATE, "text/plain");
   }
 
+  // ---------- stats ----------
+
+  function lineChartSvg(rates) {
+    const w = 280, h = 90, pad = 12;
+    const n = rates.length;
+    const stepX = n > 1 ? (w - pad * 2) / (n - 1) : 0;
+    const coords = rates.map((r, i) => ({
+      x: pad + stepX * i,
+      y: pad + (h - pad * 2) * (1 - Math.max(0, Math.min(100, r)) / 100),
+    }));
+    const points = coords.map((c) => `${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ");
+    const circles = coords.map((c) => `<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="3.5" fill="#4338ca"></circle>`).join("");
+    return `
+      <svg viewBox="0 0 ${w} ${h}" class="stats-chart" preserveAspectRatio="none">
+        <polyline points="${points}" fill="none" stroke="#4338ca" stroke-width="2"></polyline>
+        ${circles}
+      </svg>`;
+  }
+
+  function renderStats() {
+    setTitle("成績グラフ");
+    const history = getResultHistory();
+
+    if (!history.length) {
+      viewEl.innerHTML = `<p class="lead">まだ結果がありません。問題を解くとここに正答率の推移が表示されます。</p><p><a href="#/">トップに戻る</a></p>`;
+      return;
+    }
+
+    const groups = {};
+    const order = [];
+    history.forEach((h) => {
+      if (!groups[h.setId]) { groups[h.setId] = { title: h.setTitle, entries: [] }; order.push(h.setId); }
+      const rate = h.answered ? Math.round((h.score / h.answered) * 1000) / 10 : 0;
+      groups[h.setId].entries.push({ date: h.date, rate });
+    });
+
+    const cards = order.map((setId) => {
+      const g = groups[setId];
+      const rates = g.entries.map((e) => e.rate);
+      const latest = rates[rates.length - 1];
+      const best = Math.max(...rates);
+      return `
+        <div class="stats-card">
+          <h2 class="stats-title">${esc(g.title)}</h2>
+          <p class="stats-meta">挑戦回数: ${g.entries.length}回 ・ 直近: ${latest}% ・ 最高: ${best}%</p>
+          ${lineChartSvg(rates)}
+        </div>`;
+    }).join("");
+
+    viewEl.innerHTML = `
+      <p class="lead">問題集ごとの正答率の推移です。</p>
+      ${cards}
+      <p style="margin-top:24px"><a href="#/">トップに戻る</a></p>
+    `;
+  }
+
   // ---------- help ----------
 
   function renderHelp() {
@@ -760,6 +887,9 @@ JSON配列、または次の形式のオブジェクトのどちらかで出力�
         <li>問題はランダム出題です。</li>
         <li>途中で「中断」ボタンを押すと、今までの正解数を表示します。</li>
         <li>最後まで回答すると、結果画面で成績を確認できます。全問回答した結果は自動的にブラウザに保存されます。</li>
+        <li>問題リストページの「制限時間モード」をONにすると、1問${QUESTION_TIME_SEC}秒の制限時間付きで挑戦できます。時間切れは不正解として扱われます。</li>
+        <li>結果画面から「間違えた問題だけ復習する」を選ぶと、間違えた問題だけを再度出題できます。</li>
+        <li>メニューの「成績グラフ」から、問題集ごとの正答率の推移を確認できます。</li>
         <li>メニューの「問題をインポート」から、JSONファイルまたは貼り付けたテキストで自作の問題集を追加できます。</li>
         <li>メニューの「インポート用プロンプトをダウンロード」から、AIに問題を生成してもらうためのルール・プロンプトを入手できます。</li>
         <li>結果画面や保存済みの結果からは、JSON / CSV 形式でダウンロードできます。</li>
@@ -771,7 +901,7 @@ JSON配列、または次の形式のオブジェクトのどちらかで出力�
   // ---------- expose ----------
 
   window.__quiz = {
-    startQuiz, abortQuiz, goNext, submitAnswer,
+    startQuiz, startReviewQuiz, abortQuiz, goNext, submitAnswer,
     removeCustomSet, confirmImport, cancelImport, handleImportTextarea,
     showProblemDetail, downloadResult, downloadSavedResult,
     viewSavedResult, deleteSavedResult,
