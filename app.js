@@ -1,4 +1,4 @@
-/* Python3 模擬試験 — 静的SPA版 */
+/* 模擬試験 — 静的SPA版 */
 (function () {
   "use strict";
 
@@ -162,6 +162,8 @@
     if (parts[0] === "quiz" && session) return renderQuiz();
     if (parts[0] === "result") return renderResult();
     if (parts[0] === "help") return renderHelp();
+    if (parts[0] === "list") return renderSetList();
+    if (parts[0] === "import") return renderImportPage();
     if (parts[0] === "history" && parts[1]) return renderSavedResult(parts[1]);
     return renderHome();
   }
@@ -171,9 +173,50 @@
   // ---------- home ----------
 
   function renderHome() {
-    setTitle("Python3 模擬試験");
+    setTitle("模擬試験");
     const sets = getAllSets();
     const history = getResultHistory();
+
+    const historyItems = history.slice().reverse().slice(0, 10).map((h) => {
+      const rate = h.answered ? Math.round((h.score / h.answered) * 1000) / 10 : 0;
+      return `
+        <li class="history-item">
+          <div class="history-info">
+            <div class="history-title">${esc(h.setTitle)}</div>
+            <div class="history-meta">${esc(h.date)} ・ ${h.score}/${h.answered}問正解（${rate}%）${h.finished ? "" : "・中断"}</div>
+          </div>
+          <div class="history-buttons">
+            <button class="button secondary small" onclick="window.__quiz.viewSavedResult('${h.id}')">詳細</button>
+            <button class="button ghost small" onclick="window.__quiz.downloadSavedResult('${h.id}','json')">JSON</button>
+            <button class="button ghost small" onclick="window.__quiz.downloadSavedResult('${h.id}','csv')">CSV</button>
+            <button class="button danger small" onclick="window.__quiz.deleteSavedResult('${h.id}')">削除</button>
+          </div>
+        </li>`;
+    }).join("");
+
+    viewEl.innerHTML = `
+      <p class="lead">問題集を選んでスタートしましょう。</p>
+      <div class="section" style="margin-top:0;padding-top:0;border-top:none;">
+        <div class="actions">
+          <a class="button primary" href="#/list">問題リストを見る（全${sets.length}セット）</a>
+          <a class="button secondary" href="#/import">問題をインポートする</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>保存済みの結果</h2>
+        ${history.length ? `<ul class="problem-list">${historyItems}</ul>` : `<p class="empty-note">まだ保存された結果はありません。</p>`}
+      </div>
+
+      <p style="margin-top:24px"><a href="#/help">使い方ページ</a></p>
+    `;
+  }
+
+  // ---------- set list ----------
+
+  function renderSetList() {
+    setTitle("問題リスト");
+    const sets = getAllSets();
 
     const setItems = sets.map((s) => {
       const count = (s.questions || []).length;
@@ -196,43 +239,40 @@
         </li>`;
     }).join("");
 
-    const historyItems = history.slice().reverse().slice(0, 10).map((h) => {
-      const rate = h.answered ? Math.round((h.score / h.answered) * 1000) / 10 : 0;
-      return `
-        <li class="history-item">
-          <div class="history-info">
-            <div class="history-title">${esc(h.setTitle)}</div>
-            <div class="history-meta">${esc(h.date)} ・ ${h.score}/${h.answered}問正解（${rate}%）${h.finished ? "" : "・中断"}</div>
-          </div>
-          <div class="history-buttons">
-            <button class="button secondary small" onclick="window.__quiz.viewSavedResult('${h.id}')">詳細</button>
-            <button class="button ghost small" onclick="window.__quiz.downloadSavedResult('${h.id}','json')">JSON</button>
-            <button class="button ghost small" onclick="window.__quiz.downloadSavedResult('${h.id}','csv')">CSV</button>
-            <button class="button danger small" onclick="window.__quiz.deleteSavedResult('${h.id}')">削除</button>
-          </div>
-        </li>`;
-    }).join("");
-
     viewEl.innerHTML = `
       <p class="lead">問題集を選んでスタートしましょう。</p>
-      ${sets.length ? `<ul class="set-list">${setItems}</ul>` : `<p class="empty-note">問題集がありません。下からインポートしてください。</p>`}
+      ${sets.length ? `<ul class="set-list">${setItems}</ul>` : `<p class="empty-note">問題集がありません。トップページからインポートしてください。</p>`}
+      <p style="margin-top:24px"><a href="#/">トップに戻る</a></p>
+    `;
+  }
 
-      <div class="section">
-        <h2>カスタム問題をインポート</h2>
-        <p class="empty-note">問題集のJSONファイル（配列、または {title, questions:[...]} 形式）を読み込みます。</p>
+  // ---------- import ----------
+
+  function renderImportPage() {
+    setTitle("問題をインポート");
+    viewEl.innerHTML = `
+      <p class="lead">問題集のJSONファイル（配列、または {title, questions:[...]} 形式）をファイルまたはテキストで読み込みます。</p>
+
+      <div class="section" style="margin-top:0;padding-top:0;border-top:none;">
+        <h2>ファイルから読み込む</h2>
         <label class="dropzone" id="dropzone">
           <div>クリックまたはドラッグ＆ドロップでJSONファイルを選択</div>
           <input type="file" id="file-input" accept="application/json,.json">
         </label>
-        <div id="import-form-slot"></div>
       </div>
 
       <div class="section">
-        <h2>保存済みの結果</h2>
-        ${history.length ? `<ul class="problem-list">${historyItems}</ul>` : `<p class="empty-note">まだ保存された結果はありません。</p>`}
+        <h2>テキストから読み込む</h2>
+        <p class="empty-note">JSONテキストを直接貼り付けてインポートできます。AIで問題を生成した場合はこちらが便利です（メニューの「インポート用プロンプトをダウンロード」も参照）。</p>
+        <textarea class="import-textarea" id="import-textarea" placeholder='[{"question": "実行結果は？", "choices": ["1", "2"], "answer": 2, "explanation": "..."}]'></textarea>
+        <div class="actions">
+          <button class="button primary" onclick="window.__quiz.handleImportTextarea()">テキストを読み込む</button>
+        </div>
       </div>
 
-      <p style="margin-top:24px"><a href="#/help">使い方ページ</a></p>
+      <div id="import-form-slot"></div>
+
+      <p style="margin-top:24px"><a href="#/">トップに戻る</a></p>
     `;
 
     const dz = document.getElementById("dropzone");
@@ -246,8 +286,6 @@
       if (e.dataTransfer.files[0]) handleImportFile(e.dataTransfer.files[0]);
     });
   }
-
-  // ---------- import ----------
 
   function validateQuestion(q, idx) {
     const errs = [];
@@ -271,54 +309,65 @@
     return errs;
   }
 
+  function processImportRaw(rawText, sourceLabel, defaultTitle) {
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (e) {
+      toast("JSONの解析に失敗しました");
+      return;
+    }
+
+    let rawQuestions;
+    let defaults = { title: defaultTitle, description: "", difficulty: "カスタム" };
+
+    if (Array.isArray(data)) {
+      rawQuestions = data;
+    } else if (data && Array.isArray(data.questions)) {
+      rawQuestions = data.questions;
+      defaults.title = data.title || defaults.title;
+      defaults.description = data.description || "";
+      defaults.difficulty = data.difficulty || "カスタム";
+    } else {
+      toast("対応していない形式です（配列 または {questions:[...]} が必要）");
+      return;
+    }
+
+    const errors = [];
+    rawQuestions.forEach((q, i) => errors.push(...validateQuestion(q, i + 1)));
+    if (errors.length) {
+      toast(`検証エラー ${errors.length}件（詳細はコンソール）`);
+      console.error("インポート検証エラー:\n" + errors.join("\n"));
+      return;
+    }
+
+    const questions = rawQuestions.map((q, i) => ({
+      id: Number.isInteger(q.id) ? q.id : i + 1,
+      question: q.question,
+      code: q.code || "",
+      choices: q.choices,
+      answer: q.answer,
+      explanation: q.explanation || "",
+    }));
+
+    pendingImport = { questions, defaults, fileName: sourceLabel };
+    renderImportForm();
+    toast(`${questions.length}問を読み込みました。内容を確認してください。`);
+  }
+
   function handleImportFile(file) {
     const reader = new FileReader();
     reader.onload = () => {
-      let data;
-      try {
-        data = JSON.parse(reader.result);
-      } catch (e) {
-        toast("JSONの解析に失敗しました");
-        return;
-      }
-
-      let rawQuestions;
-      let defaults = { title: file.name.replace(/\.json$/i, ""), description: "", difficulty: "カスタム" };
-
-      if (Array.isArray(data)) {
-        rawQuestions = data;
-      } else if (data && Array.isArray(data.questions)) {
-        rawQuestions = data.questions;
-        defaults.title = data.title || defaults.title;
-        defaults.description = data.description || "";
-        defaults.difficulty = data.difficulty || "カスタム";
-      } else {
-        toast("対応していない形式です（配列 または {questions:[...]} が必要）");
-        return;
-      }
-
-      const errors = [];
-      rawQuestions.forEach((q, i) => errors.push(...validateQuestion(q, i + 1)));
-      if (errors.length) {
-        toast(`検証エラー ${errors.length}件（詳細はコンソール）`);
-        console.error("インポート検証エラー:\n" + errors.join("\n"));
-        return;
-      }
-
-      const questions = rawQuestions.map((q, i) => ({
-        id: Number.isInteger(q.id) ? q.id : i + 1,
-        question: q.question,
-        code: q.code || "",
-        choices: q.choices,
-        answer: q.answer,
-        explanation: q.explanation || "",
-      }));
-
-      pendingImport = { questions, defaults, fileName: file.name };
-      renderImportForm();
-      toast(`${questions.length}問を読み込みました。内容を確認してください。`);
+      processImportRaw(reader.result, file.name, file.name.replace(/\.json$/i, ""));
     };
     reader.readAsText(file, "utf-8");
+  }
+
+  function handleImportTextarea() {
+    const ta = document.getElementById("import-textarea");
+    const text = ta ? ta.value.trim() : "";
+    if (!text) { toast("テキストを入力してください"); return; }
+    processImportRaw(text, "貼り付けたテキスト", "カスタム問題集");
   }
 
   function renderImportForm() {
@@ -361,12 +410,12 @@
     saveCustomSets(sets);
     pendingImport = null;
     toast("問題集をインポートしました");
-    renderHome();
+    if (location.hash === "#/list") renderSetList(); else go("#/list");
   }
 
   function cancelImport() {
     pendingImport = null;
-    renderHome();
+    renderImportPage();
   }
 
   function removeCustomSet(setId) {
@@ -374,7 +423,7 @@
     const sets = getCustomSets().filter((s) => s.id !== setId);
     saveCustomSets(sets);
     toast("削除しました");
-    renderHome();
+    renderSetList();
   }
 
   // ---------- quiz ----------
@@ -654,17 +703,65 @@
     renderHome();
   }
 
+  // ---------- import prompt ----------
+
+  const IMPORT_PROMPT_TEMPLATE = `あなたは模擬試験の問題作成アシスタントです。
+以下のルールに厳密に従って、指定されたテーマの問題を JSON 形式で出力してください。
+
+# 出力形式
+JSON配列、または次の形式のオブジェクトのどちらかで出力してください。
+{
+  "title": "問題集のタイトル",
+  "description": "説明文（省略可）",
+  "difficulty": "初級 | 中級 | 上級 | カスタム",
+  "questions": [ ... ]
+}
+
+# questions の各要素（1問ごとのルール）
+- "question": 問題文（必須、500文字以内）
+- "code": コード例など（省略可、2000文字以内）
+- "choices": 選択肢の配列（2〜8個、各200文字以内）
+- "answer": 正解の選択肢番号（1始まりの整数。choices のインデックスに対応。例: choices[0]が正解なら 1）
+- "explanation": 解説（省略可、1000文字以内）
+
+# 出力例
+[
+  {
+    "question": "実行結果は？",
+    "code": "print(1 + 1)",
+    "choices": ["1", "2", "3", "エラー"],
+    "answer": 2,
+    "explanation": "1 + 1 は 2 になる。"
+  }
+]
+
+# 依頼内容
+テーマ: （ここにテーマを記入）
+問題数: （ここに問題数を記入）
+難易度: （初級 / 中級 / 上級 のいずれかを記入）
+
+# 注意事項
+- 上記のJSON形式・ルールを厳守してください。
+- 出力は JSON のみとし、前置きや説明文、コードブロックの \`\`\` は付けないでください。
+- 生成した JSON は、このアプリの「問題をインポート」ページの「テキストから読み込む」欄にそのまま貼り付けて使用します。
+`;
+
+  function downloadImportPrompt() {
+    downloadBlob("import_prompt.txt", IMPORT_PROMPT_TEMPLATE, "text/plain");
+  }
+
   // ---------- help ----------
 
   function renderHelp() {
     setTitle("使い方");
     viewEl.innerHTML = `
-      <p class="lead">このアプリは Python の模擬試験です。各問題を読んで、正しい選択肢を選んでください。</p>
+      <p class="lead">このアプリは様々な分野の模擬試験に挑戦できるクイズアプリです。各問題を読んで、正しい選択肢を選んでください。</p>
       <ul>
         <li>問題はランダム出題です。</li>
         <li>途中で「中断」ボタンを押すと、今までの正解数を表示します。</li>
         <li>最後まで回答すると、結果画面で成績を確認できます。全問回答した結果は自動的にブラウザに保存されます。</li>
-        <li>トップページからJSONファイルをインポートすると、自作の問題集を追加できます。</li>
+        <li>メニューの「問題をインポート」から、JSONファイルまたは貼り付けたテキストで自作の問題集を追加できます。</li>
+        <li>メニューの「インポート用プロンプトをダウンロード」から、AIに問題を生成してもらうためのルール・プロンプトを入手できます。</li>
         <li>結果画面や保存済みの結果からは、JSON / CSV 形式でダウンロードできます。</li>
       </ul>
       <p><a href="#/">トップに戻る</a></p>
@@ -675,8 +772,27 @@
 
   window.__quiz = {
     startQuiz, abortQuiz, goNext, submitAnswer,
-    removeCustomSet, confirmImport, cancelImport,
+    removeCustomSet, confirmImport, cancelImport, handleImportTextarea,
     showProblemDetail, downloadResult, downloadSavedResult,
     viewSavedResult, deleteSavedResult,
   };
+
+  // ---------- hamburger menu ----------
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("menu-toggle");
+    const closeBtn = document.getElementById("menu-close");
+    const overlay = document.getElementById("menu-overlay");
+    const menu = document.getElementById("side-menu");
+    const downloadBtn = document.getElementById("menu-download-prompt");
+
+    function openMenu() { menu.classList.add("open"); overlay.classList.add("open"); }
+    function closeMenu() { menu.classList.remove("open"); overlay.classList.remove("open"); }
+
+    toggleBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    menu.querySelectorAll(".menu-link").forEach((el) => el.addEventListener("click", closeMenu));
+    downloadBtn.addEventListener("click", () => { downloadImportPrompt(); closeMenu(); });
+  });
 })();

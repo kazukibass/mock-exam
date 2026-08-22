@@ -3,15 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Python3 模擬試験</title>
+  <title>模擬試験</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <header><h1 id="page-title">Python3 模擬試験</h1></header>
+    <header class="header-bar">
+      <h1 id="page-title">模擬試験</h1>
+      <button type="button" class="hamburger-btn" id="menu-toggle" aria-label="メニューを開く">&#9776;</button>
+    </header>
     <main><div class="card" id="view"></div></main>
-    <footer>Python 模擬試験クイズ（静的版）</footer>
+    <footer>模擬試験クイズ（静的版）</footer>
   </div>
+
+  <div id="menu-overlay" class="menu-overlay"></div>
+  <nav id="side-menu" class="side-menu">
+    <button type="button" class="menu-close" id="menu-close" aria-label="メニューを閉じる">&times;</button>
+    <a class="menu-link" href="#/list">問題リスト</a>
+    <a class="menu-link" href="#/import">問題をインポート</a>
+    <button type="button" class="menu-link menu-button" id="menu-download-prompt">インポート用プロンプトをダウンロード</button>
+    <a class="menu-link" href="#/help">使い方</a>
+  </nav>
 
   <div id="problem-detail-modal" class="modal">
     <div class="modal-content">
