@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "question": "実行結果は？",
+    "code": "x = [1, 2, 3]\nprint(len(x))",
+    "choices": ["2", "3", "4", "エラー"],
+    "answer": 2,
+    "explanation": "len()はシーケンスの要素数を返す。リスト[1,2,3]の要素は3つなので3を返す。"
+  },
+  {
+    "id": 2,
+    "question": "実行結果は？",
+    "code": "print(type(3.14))",
+    "choices": ["<class 'int'>", "<class 'float'>", "<class 'str'>", "<class 'num'>"],
+    "answer": 2,
+    "explanation": "3.14は小数なので浮動小数点数型(float)。type()はオブジェクトの型を返す。"
+  },
+  {
+    "id": 3,
+    "question": "実行結果は？",
+    "code": "x = 10\ny = 3\nprint(x % y)",
+    "choices": ["3", "1", "0", "エラー"],
+    "answer": 2,
+    "explanation": "%は剰余演算子。10÷3=3余り1なので、10%3は1を返す。"
+  },
+  {
+    "id": 4,
+    "question": "実行結果は？",
+    "code": "s = 'hello'\nprint(s[1])",
+    "choices": ["h", "e", "l", "エラー"],
+    "answer": 2,
+    "explanation": "文字列のインデックスは0始まり。s[0]='h'、s[1]='e'となる。"
+  },
+  {
+    "id": 5,
+    "question": "実行結果は？",
+    "code": "x = True\ny = False\nprint(x and y)",
+    "choices": ["True", "False", "None", "エラー"],
+    "answer": 2,
+    "explanation": "andは両方がTrueのときのみTrueを返す論理積演算子。TrueとFalseのandはFalse。"
+  },
+  {
+    "id": 6,
+    "question": "実行結果は？",
+    "code": "print(10 // 3)",
+    "choices": ["3.33", "3", "4", "エラー"],
+    "answer": 2,
+    "explanation": "//は切り捨て除算（整数除算）演算子。10÷3=3.33...の小数部を切り捨てて3を返す。"
+  },
+  {
+    "id": 7,
+    "question": "実行結果は？",
+    "code": "lst = [1, 2, 3]\nlst.append(4)\nprint(len(lst))",
+    "choices": ["3", "4", "5", "エラー"],
+    "answer": 2,
+    "explanation": "append()はリストの末尾に要素を1つ追加する。3要素のリストに1つ追加すると長さは4になる。"
+  },
+  {
+    "id": 8,
+    "question": "実行結果は？",
+    "code": "x = 'Python'\nprint(x.upper())",
+    "choices": ["python", "PYTHON", "Python", "エラー"],
+    "answer": 2,
+    "explanation": "upper()は文字列の全文字を大文字に変換するメソッド。'Python'→'PYTHON'。"
+  },
+  {
+    "id": 9,
+    "question": "実行結果は？",
+    "code": "d = {'a': 1, 'b': 2}\nprint(d['a'])",
+    "choices": ["1", "2", "a", "エラー"],
+    "answer": 1,
+    "explanation": "辞書のキー'a'に対応する値は1。d['キー']でその値にアクセスできる。"
+  },
+  {
+    "id": 10,
+    "question": "実行結果は？",
+    "code": "for i in range(3):\n    print(i)",
+    "choices": ["0 1 2", "1 2 3", "0 1 2 3", "エラー"],
+    "answer": 1,
+    "explanation": "range(3)は0, 1, 2を生成する（3は含まない）。各値が順に出力されるので「0 1 2」（各行）になる。"
+  },
+  {
+    "id": 11,
+    "question": "実行結果は？",
+    "code": "print(2 ** 3)",
+    "choices": ["6", "8", "9", "エラー"],
+    "answer": 2,
+    "explanation": "**はべき乗演算子。2**3は2の3乗（2×2×2）で8。"
+  },
+  {
+    "id": 12,
+    "question": "実行結果は？",
+    "code": "s = 'hello world'\nprint(s.split())",
+    "choices": ["['hello world']", "['hello', 'world']", "('hello', 'world')", "エラー"],
+    "answer": 2,
+    "explanation": "split()は引数なしで呼ぶと空白（スペース）を区切り文字として文字列を分割し、リストを返す。"
+  },
+  {
+    "id": 13,
+    "question": "実行結果は？",
+    "code": "x = [3, 1, 2]\nx.sort()\nprint(x)",
+    "choices": ["[3, 1, 2]", "[1, 2, 3]", "[3, 2, 1]", "エラー"],
+    "answer": 2,
+    "explanation": "sort()はリストをその場で昇順に並び替える（破壊的操作）。[3,1,2]→[1,2,3]。"
+  },
+  {
+    "id": 14,
+    "question": "実行結果は？",
+    "code": "print('abc' * 2)",
+    "choices": ["abc2", "abcabc", "abc abc", "エラー"],
+    "answer": 2,
+    "explanation": "文字列と整数の*演算子は文字列の繰り返しを行う。'abc'*2は'abc'を2回繰り返して'abcabc'。"
+  },
+  {
+    "id": 15,
+    "question": "実行結果は？",
+    "code": "x = None\nprint(x is None)",
+    "choices": ["False", "True", "None", "エラー"],
+    "answer": 2,
+    "explanation": "is演算子はオブジェクトの同一性を確認する。NoneはシングルトンなのでxがNoneならx is NoneはTrue。"
+  },
+  {
+    "id": 16,
+    "question": "実行結果は？",
+    "code": "a = [1, 2, 3]\nprint(a[-1])",
+    "choices": ["1", "2", "3", "エラー"],
+    "answer": 3,
+    "explanation": "負のインデックスは末尾から数える。a[-1]は最後の要素（3）を指す。"
+  },
+  {
+    "id": 17,
+    "question": "実行結果は？",
+    "code": "def greet(name):\n    return 'Hello ' + name\nprint(greet('World'))",
+    "choices": ["Hello", "Hello World", "World", "エラー"],
+    "answer": 2,
+    "explanation": "関数greetは'Hello 'とnameを+で連結して返す。greet('World')は'Hello World'を返す。"
+  },
+  {
+    "id": 18,
+    "question": "実行結果は？",
+    "code": "x = [0, '', None, 1]\nprint(bool(x[0]))",
+    "choices": ["True", "False", "None", "エラー"],
+    "answer": 2,
+    "explanation": "x[0]は0。Pythonでは0、空文字列''、None、空リスト[]などはFalsyな値なのでbool(0)はFalse。"
+  },
+  {
+    "id": 19,
+    "question": "実行結果は？",
+    "code": "s = 'Python3'\nprint(len(s))",
+    "choices": ["6", "7", "8", "エラー"],
+    "answer": 2,
+    "explanation": "'Python3'は'P','y','t','h','o','n','3'の7文字なのでlen()は7を返す。"
+  },
+  {
+    "id": 20,
+    "question": "実行結果は？",
+    "code": "t = (1, 2, 3)\nprint(t[0])",
+    "choices": ["1", "2", "3", "エラー"],
+    "answer": 1,
+    "explanation": "タプルのインデックスも0始まり。t[0]は最初の要素1を返す。"
+  },
+  {
+    "id": 21,
+    "question": "実行結果は？",
+    "code": "x = 5\nif x > 3:\n    print('big')\nelse:\n    print('small')",
+    "choices": ["small", "big", "3", "エラー"],
+    "answer": 2,
+    "explanation": "5>3はTrueなのでifブロックが実行され'big'が出力される。elseブロックは実行されない。"
+  },
+  {
+    "id": 22,
+    "question": "実行結果は？",
+    "code": "lst = list(range(5))\nprint(lst)",
+    "choices": ["[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4]", "(0, 1, 2, 3, 4)", "エラー"],
+    "answer": 2,
+    "explanation": "range(5)は0から4までの整数を生成する。list()でリストに変換すると[0,1,2,3,4]。"
+  },
+  {
+    "id": 23,
+    "question": "実行結果は？",
+    "code": "d = {}\nd['key'] = 'val'\nprint(len(d))",
+    "choices": ["0", "1", "2", "エラー"],
+    "answer": 2,
+    "explanation": "空の辞書にキー'key'を1つ追加したのでlen(d)は1。辞書のlen()はキーの数を返す。"
+  },
+  {
+    "id": 24,
+    "question": "実行結果は？",
+    "code": "x = 'hello'\nprint(x.replace('l', 'r'))",
+    "choices": ["herro", "helo", "herlo", "エラー"],
+    "answer": 1,
+    "explanation": "replace(old, new)は文字列中の全てのoldをnewに置換する。'hello'の'l'は2箇所あるので'herro'になる。"
+  },
+  {
+    "id": 25,
+    "question": "実行結果は？",
+    "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
+    "choices": ["3", "4", "2", "エラー"],
+    "answer": 2,
+    "explanation": "b=aは参照のコピー。bとaは同じリストオブジェクトを指すため、b.append(4)はaにも反映されlen(a)は4になる。"
+  },
+  {
+    "id": 26,
+    "question": "Pythonでコメントを書くのに使う記号は？",
+    "code": "",
+    "choices": ["//", "/*", "#", "--"],
+    "answer": 3,
+    "explanation": "Pythonのコメントは#記号を使う。//はC言語やJavaScript、/*...*/はブロックコメント（Pythonにはない）。"
+  },
+  {
+    "id": 27,
+    "question": "実行結果は？",
+    "code": "print(int('42'))",
+    "choices": ["'42'", "42", "42.0", "エラー"],
+    "answer": 2,
+    "explanation": "int()は文字列を整数に変換する。int('42')は整数の42を返す。クォートなしで42と表示される。"
+  },
+  {
+    "id": 28,
+    "question": "実行結果は？",
+    "code": "s = 'abcdef'\nprint(s[2:4])",
+    "choices": ["cde", "cd", "bcd", "de"],
+    "answer": 2,
+    "explanation": "スライスs[2:4]は開始インデックス2を含み終了インデックス4を含まない。s[2]='c'、s[3]='d'なので'cd'。"
+  },
+  {
+    "id": 29,
+    "question": "実行結果は？",
+    "code": "x = [1, 2, 3, 4, 5]\nprint(sum(x))",
+    "choices": ["12", "15", "10", "エラー"],
+    "answer": 2,
+    "explanation": "sum()はイテラブルの全要素の合計を返す。1+2+3+4+5=15。"
+  },
+  {
+    "id": 30,
+    "question": "実行結果は？",
+    "code": "print(max(3, 1, 4, 1, 5))",
+    "choices": ["4", "3", "5", "エラー"],
+    "answer": 3,
+    "explanation": "max()は引数の中の最大値を返す。3,1,4,1,5の中で最大は5。"
+  },
+  {
+    "id": 31,
+    "question": "Pythonのリストで要素を末尾から削除するメソッドは？",
+    "code": "",
+    "choices": ["remove()", "delete()", "pop()", "cut()"],
+    "answer": 3,
+    "explanation": "pop()は引数なしで呼ぶとリストの末尾要素を削除してその値を返す。remove()は値指定で削除、delete()/cut()は存在しない。"
+  },
+  {
+    "id": 32,
+    "question": "実行結果は？",
+    "code": "x = 3\nwhile x > 0:\n    x -= 1\nprint(x)",
+    "choices": ["1", "0", "-1", "エラー"],
+    "answer": 2,
+    "explanation": "x=3から始まり、x>0の間x-=1を繰り返す。x=3→2→1→0となりx>0がFalseになりループ終了。最後のxは0。"
+  },
+  {
+    "id": 33,
+    "question": "実行結果は？",
+    "code": "print(str(100))",
+    "choices": ["100", "'100'", "エラー", "int"],
+    "answer": 1,
+    "explanation": "str()は値を文字列に変換するが、print()で出力するとクォートなしで表示される。str(100)→'100'→print→100。"
+  },
+  {
+    "id": 34,
+    "question": "実行結果は？",
+    "code": "lst = [1, 2, 3]\nprint(lst[1:3])",
+    "choices": ["[1, 2]", "[2, 3]", "[1, 2, 3]", "エラー"],
+    "answer": 2,
+    "explanation": "lst[1:3]はインデックス1から2（3は含まない）の要素。lst[1]=2、lst[2]=3なので[2,3]。"
+  },
+  {
+    "id": 35,
+    "question": "Pythonで等しくないことを確認する演算子は？",
+    "code": "",
+    "choices": ["!=", "<>", "=/=", "=/"],
+    "answer": 1,
+    "explanation": "Pythonの不等価演算子は!=。<>はPython2の古い記法で現在は使えない。"
+  },
+  {
+    "id": 36,
+    "question": "実行結果は？",
+    "code": "x = [1, 2, 3]\nprint(x.index(2))",
+    "choices": ["0", "1", "2", "エラー"],
+    "answer": 2,
+    "explanation": "index()は指定した値が最初に現れるインデックスを返す。リスト[1,2,3]で2のインデックスは1（0始まり）。"
+  },
+  {
+    "id": 37,
+    "question": "実行結果は？",
+    "code": "print('  hello  '.strip())",
+    "choices": ["'  hello  '", "'hello'", "hello", "エラー"],
+    "answer": 3,
+    "explanation": "strip()は文字列の前後の空白を除去する。print()で出力するとクォートなしで'hello'ではなくhelloと表示される。"
+  },
+  {
+    "id": 38,
+    "question": "実行結果は？",
+    "code": "a = {1, 2, 3}\nb = {2, 3, 4}\nprint(len(a & b))",
+    "choices": ["1", "2", "3", "エラー"],
+    "answer": 2,
+    "explanation": "&演算子はset（集合）の積集合（共通要素）を求める。{1,2,3}と{2,3,4}の共通要素は{2,3}なのでlen()は2。"
+  },
+  {
+    "id": 39,
+    "question": "Pythonで関数を定義するキーワードは？",
+    "code": "",
+    "choices": ["function", "def", "func", "define"],
+    "answer": 2,
+    "explanation": "Pythonで関数を定義するにはdefキーワードを使う。functionはJavaScript、funcはGoなどの他言語のキーワード。"
+  },
+  {
+    "id": 40,
+    "question": "実行結果は？",
+    "code": "x = [1, 2, 3]\nprint(x[::-1])",
+    "choices": ["[1, 2, 3]", "[3, 2, 1]", "[3]", "エラー"],
+    "answer": 2,
+    "explanation": "スライスの第3引数はステップ（刻み）。[::-1]はステップ-1で末尾から先頭へ走査するため、リストを逆順にする。"
+  }
+]

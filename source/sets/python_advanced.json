@@ -1,0 +1,522 @@
+[
+  {
+    "id": 1,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "nums = [1, 2]\nnums.extend([3, 4])\nprint(nums)",
+    "choices": [
+      "[1, 2, [3, 4]]",
+      "[1, 2, 3, 4]",
+      "[3, 4]",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "extend()はリストを引数に取り、その要素を順に末尾へ追加する。append([3,4])では[3,4]が1要素として追加されるが、extend()では展開されて追加される。"
+  },
+  {
+    "id": 2,
+    "question": "リストの末尾に要素を1つ追加するメソッドはどれか。",
+    "code": "",
+    "choices": [
+      "add()",
+      "insert()",
+      "append()",
+      "extend()"
+    ],
+    "answer": 3,
+    "explanation": "append()はリストの末尾に要素を1つ追加する。insert()は任意位置に挿入、extend()は複数要素を追加、add()はsetのメソッドでlistには存在しない。"
+  },
+  {
+    "id": 3,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "d = {'a': 1}\nprint(d.get('b', 0))",
+    "choices": [
+      "None",
+      "KeyError",
+      "0",
+      "\"0\""
+    ],
+    "answer": 3,
+    "explanation": "dict.get(key, default)はキーが存在しない場合にdefault値を返す。キー'b'は存在しないのでデフォルト値0を返す。d['b']ではKeyErrorが発生するのとは異なる。"
+  },
+  {
+    "id": 4,
+    "question": "辞書のキー一覧を取得するメソッドはどれか。",
+    "code": "",
+    "choices": [
+      "values()",
+      "keys()",
+      "items()",
+      "get()"
+    ],
+    "answer": 2,
+    "explanation": "keys()は辞書のキー一覧をdict_keys型で返す。values()は値一覧、items()はキーと値のペア一覧をそれぞれ返す。"
+  },
+  {
+    "id": 5,
+    "question": "集合型(set)の特徴として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "重複を許す",
+      "順序を保証する",
+      "重複要素を持てない",
+      "キーと値を持つ"
+    ],
+    "answer": 3,
+    "explanation": "set型は重複した要素を持てない（同じ値を追加しても1つしか保持されない）。順序は保証されず（Python3.7以降のdictは順序保証あり）、キーと値を持つのはdict。"
+  },
+  {
+    "id": 6,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "nums = [1,2,3,4]\nprint([x*x for x in nums if x % 2 == 0])",
+    "choices": [
+      "[1,4,9,16]",
+      "[4,16]",
+      "[2,4]",
+      "[1,9]"
+    ],
+    "answer": 2,
+    "explanation": "リスト内包表記でx%2==0（偶数）の条件を満たすxはnumsから2と4。それぞれの2乗は4と16なので[4,16]。"
+  },
+  {
+    "id": 7,
+    "question": "辞書内包表記として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "{x:x*x for x in range(3)}",
+      "[x:x*x for x in range(3)]",
+      "(x:x*x for x in range(3))",
+      "{x,x*x}"
+    ],
+    "answer": 1,
+    "explanation": "辞書内包表記は{key:value for ...}の形式。{}でkey:valueの形式を使うと辞書になる。[]はリスト内包表記、()はジェネレータ式。"
+  },
+  {
+    "id": 8,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "a = (1,2,3)\nprint(len(a))",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "タプル(1,2,3)の要素数は3。len()はリスト・タプル・文字列など様々なシーケンスに対して要素数を返す。"
+  },
+  {
+    "id": 9,
+    "question": "*argsで受け取った値の型として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "list",
+      "tuple",
+      "dict",
+      "set"
+    ],
+    "answer": 2,
+    "explanation": "*argsは位置引数を可変長で受け取る。関数内ではtupleとして扱われる。listに似ているが変更不可のtupleであることに注意。"
+  },
+  {
+    "id": 10,
+    "question": "**kwargsで受け取った値の型として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "tuple",
+      "list",
+      "dict",
+      "set"
+    ],
+    "answer": 3,
+    "explanation": "**kwargsはキーワード引数を可変長で受け取る。関数内ではdict（辞書）として扱われ、引数名がキー、引数値が値になる。"
+  },
+  {
+    "id": 11,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "def func(a, b=10):\n    return a+b\n\nprint(func(5))",
+    "choices": [
+      "5",
+      "10",
+      "15",
+      "エラー"
+    ],
+    "answer": 3,
+    "explanation": "func(5)はa=5でb=10（デフォルト値）として呼び出される。a+b=5+10=15を返してprint()で出力する。"
+  },
+  {
+    "id": 12,
+    "question": "lambda式として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "lambda x: x*2",
+      "lambda(x)=x*2",
+      "lambda x -> x*2",
+      "def lambda(x)"
+    ],
+    "answer": 1,
+    "explanation": "lambdaの構文は「lambda 引数: 式」。lambdaは予約語なのでdef lambda()は構文エラー。->はPythonでは戻り値の型ヒントに使い、lambda内では使えない。"
+  },
+  {
+    "id": 13,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "nums=[1,2,3]\nprint(list(map(lambda x:x*2, nums)))",
+    "choices": [
+      "[1,2,3]",
+      "[2,4,6]",
+      "[1,4,9]",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "map()は各要素に関数を適用する。lambda x:x*2で各要素を2倍にするので[1,2,3]→[2,4,6]。list()でmapオブジェクトをリストに変換。"
+  },
+  {
+    "id": 14,
+    "question": "enumerate()の役割として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "ソート",
+      "インデックス付きで反復",
+      "重複削除",
+      "フィルタ"
+    ],
+    "answer": 2,
+    "explanation": "enumerate()はイテラブルに0始まりのインデックスを付与して(index, value)のタプルで反復できるようにする。forループでインデックスと値を同時に使いたいときに便利。"
+  },
+  {
+    "id": 15,
+    "question": "zip()の説明として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "要素をペアにする",
+      "ソートする",
+      "集合を作る",
+      "逆順にする"
+    ],
+    "answer": 1,
+    "explanation": "zip()は複数のイテラブルの対応する要素をタプルにまとめる。最も短いイテラブルの長さで終了する。"
+  },
+  {
+    "id": 16,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "name = 'Python'\nprint(f'Hello {name}')",
+    "choices": [
+      "Hello name",
+      "Hello Python",
+      "{name}",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "f文字列（フォーマット文字列）では{}の中に変数名や式を書くと評価された値が埋め込まれる。f'Hello {name}'はnameの値'Python'が展開されて'Hello Python'になる。"
+  },
+  {
+    "id": 17,
+    "question": "文字列を小文字に変換するメソッドはどれか。",
+    "code": "",
+    "choices": [
+      "upper()",
+      "lower()",
+      "title()",
+      "capitalize()"
+    ],
+    "answer": 2,
+    "explanation": "lower()は文字列の全文字を小文字に変換する。upper()は大文字、title()は各単語の先頭を大文字に、capitalize()は先頭文字のみ大文字にする。"
+  },
+  {
+    "id": 18,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "s='abc'\nprint(s.replace('a','x'))",
+    "choices": [
+      "abc",
+      "xbc",
+      "axc",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "replace(old, new)は文字列中の全てのoldをnewに置換した新しい文字列を返す。'abc'の'a'を'x'に置換すると'xbc'。文字列はイミュータブルなので元の文字列は変わらない。"
+  },
+  {
+    "id": 19,
+    "question": "ジェネレータ関数で使用するキーワードはどれか。",
+    "code": "",
+    "choices": [
+      "next",
+      "iter",
+      "yield",
+      "generator"
+    ],
+    "answer": 3,
+    "explanation": "yieldキーワードを含む関数はジェネレータ関数になる。yieldで値を一つ生成して処理を一時停止し、次にnext()が呼ばれると再開する。"
+  },
+  {
+    "id": 20,
+    "question": "next()の役割として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "要素数取得",
+      "次の値を取り出す",
+      "ソート",
+      "初期化"
+    ],
+    "answer": 2,
+    "explanation": "next()はイテレータから次の値を一つ取り出す組み込み関数。全ての要素を使い切るとStopIteration例外が発生する。"
+  },
+  {
+    "id": 21,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "class A:\n    x = 10\n\na = A()\nprint(a.x)",
+    "choices": [
+      "10",
+      "None",
+      "A",
+      "エラー"
+    ],
+    "answer": 1,
+    "explanation": "aはクラスAのインスタンス。インスタンス変数xがないため、クラス変数x=10を参照してprint(a.x)は10を出力する。"
+  },
+  {
+    "id": 22,
+    "question": "インスタンス変数を定義する場所として適切なものを選びなさい。",
+    "code": "",
+    "choices": [
+      "__init__",
+      "class直下",
+      "import部",
+      "main関数"
+    ],
+    "answer": 1,
+    "explanation": "インスタンス変数はself.変数名の形で__init__メソッド内に定義するのが一般的。class直下に定義するとクラス変数になり全インスタンスで共有される。"
+  },
+  {
+    "id": 23,
+    "question": "継承を表す構文として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "class B extends A:",
+      "class B(A):",
+      "class B:A",
+      "inherit A"
+    ],
+    "answer": 2,
+    "explanation": "Pythonの継承はclass 子クラス(親クラス):の構文。extendsはJavaやJavaScriptの構文。class B:Aは構文エラー。"
+  },
+  {
+    "id": 24,
+    "question": "親クラスのメソッドを呼び出す際に利用する関数として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "parent()",
+      "super()",
+      "base()",
+      "self.parent()"
+    ],
+    "answer": 2,
+    "explanation": "super()は親クラス（スーパークラス）への参照を返す組み込み関数。super().メソッド名()で親クラスのメソッドを呼び出せる。"
+  },
+  {
+    "id": 25,
+    "question": "特殊メソッドとして正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "init()",
+      "__init__()",
+      "constructor()",
+      "_init_"
+    ],
+    "answer": 2,
+    "explanation": "Pythonの特殊メソッド（ダンダーメソッド）は前後をアンダースコア2つで囲む。__init__()はコンストラクタ。_init_（アンダースコア1つ）は特殊メソッドではない。"
+  },
+  {
+    "id": 26,
+    "question": "組み込み例外クラスとして正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "ValueError",
+      "FileError",
+      "NumberError",
+      "DataError"
+    ],
+    "answer": 1,
+    "explanation": "ValueErrorはPython組み込みの例外クラス。int('abc')など不正な値が渡されたときに発生する。FileError/NumberError/DataErrorはPythonに存在しない。"
+  },
+  {
+    "id": 27,
+    "question": "finally節の説明として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "例外発生時のみ実行される",
+      "正常終了時のみ実行される",
+      "必ず実行される",
+      "except節の代わりとなる"
+    ],
+    "answer": 3,
+    "explanation": "finally節はtry/exceptブロックの結果に関わらず必ず実行される。ファイルのクローズやDB接続の解放など後片付け処理に使う。"
+  },
+  {
+    "id": 28,
+    "question": "with文の目的として最も適切なものを選びなさい。",
+    "code": "",
+    "choices": [
+      "条件分岐",
+      "リソース管理",
+      "継承",
+      "並列処理"
+    ],
+    "answer": 2,
+    "explanation": "with文はコンテキストマネージャを使ったリソース管理に使う。with open('file')で開いたファイルはブロック終了時に自動的にclose()される。"
+  },
+  {
+    "id": 29,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "import math\nprint(math.sqrt(9))",
+    "choices": [
+      "3",
+      "3.0",
+      "9",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "math.sqrt()は平方根を浮動小数点数(float)で返す。√9=3だが戻り値はfloatなので3.0になる。整数で返したい場合はint()で変換する。"
+  },
+  {
+    "id": 30,
+    "question": "乱数生成に使用する標準モジュールを選びなさい。",
+    "code": "",
+    "choices": [
+      "statistics",
+      "random",
+      "decimal",
+      "fractions"
+    ],
+    "answer": 2,
+    "explanation": "randomモジュールは乱数生成の標準ライブラリ。random.randint()、random.random()、random.choice()などを提供する。statisticsは統計計算用。"
+  },
+  {
+    "id": 31,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "from collections import Counter\n\nc = Counter('banana')\nprint(c['a'])",
+    "choices": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": 3,
+    "explanation": "'banana'の各文字を数えると b:1, a:3, n:2。Counterは辞書のサブクラスで文字をキーとして出現回数を値に持つ。c['a']=3。"
+  },
+  {
+    "id": 32,
+    "question": "json.loads()の役割として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "JSON文字列をPythonオブジェクトに変換する",
+      "PythonオブジェクトをJSON文字列に変換する",
+      "JSONファイルへ保存する",
+      "JSONファイルを読み込む"
+    ],
+    "answer": 1,
+    "explanation": "json.loads()（loads = load string）はJSON形式の文字列をPythonのdict/list等に変換する。Pythonオブジェクト→JSON文字列はjson.dumps()、ファイル操作はjson.load()/json.dump()。"
+  },
+  {
+    "id": 33,
+    "question": "os.getcwd()が返すものとして正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "カレントディレクトリ",
+      "ホームディレクトリ",
+      "Pythonのパス",
+      "ファイル名"
+    ],
+    "answer": 1,
+    "explanation": "os.getcwd()（get current working directory）はプロセスの現在の作業ディレクトリを文字列で返す。ホームディレクトリはos.path.expanduser('~')で取得できる。"
+  },
+  {
+    "id": 34,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "import re\n\nprint(re.findall(r'\\d+', 'ab12cd34'))",
+    "choices": [
+      "['1', '2', '3', '4']",
+      "['12', '34']",
+      "['ab', 'cd']",
+      "[]"
+    ],
+    "answer": 2,
+    "explanation": "\\d+は1文字以上の連続した数字にマッチする。'ab12cd34'の数字の連続部分は'12'と'34'の2箇所なので['12', '34']になる。"
+  },
+  {
+    "id": 35,
+    "question": "ファイルを安全に扱うために推奨される構文を選びなさい。",
+    "code": "",
+    "choices": [
+      "try",
+      "lambda",
+      "with",
+      "global"
+    ],
+    "answer": 3,
+    "explanation": "ファイル操作は`with open('file') as f:`を使うことが推奨される。withブロックを抜けると例外が発生してもclose()が自動的に呼ばれてファイルが安全に閉じられる。"
+  },
+  {
+    "id": 36,
+    "question": "モジュール全体を読み込む構文として正しいものを選びなさい。",
+    "code": "",
+    "choices": [
+      "include math",
+      "import math",
+      "using math",
+      "require math"
+    ],
+    "answer": 2,
+    "explanation": "Pythonのモジュール読み込みにはimport文を使う。include(C言語)、using(C#)、require(Ruby/Node.js)は他言語の構文。"
+  },
+  {
+    "id": 37,
+    "question": "現在のモジュール名を表す特殊変数を選びなさい。",
+    "code": "",
+    "choices": [
+      "__name__",
+      "__main__",
+      "__file__",
+      "__module__"
+    ],
+    "answer": 1,
+    "explanation": "__name__は現在のモジュール名を格納する特殊変数。スクリプトとして直接実行すると'__main__'になり、importされると実際のモジュール名になる。if __name__=='__main__':でよく使われる。"
+  },
+  {
+    "id": 38,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "list(filter(lambda x: x > 2, [1, 2, 3, 4]))",
+    "choices": [
+      "[1, 2]",
+      "[3, 4]",
+      "[2, 3, 4]",
+      "[1, 2, 3, 4]"
+    ],
+    "answer": 2,
+    "explanation": "filter()はTrueを返す要素のみ残す。lambda x: x>2でx>2（3と4）のみが条件を満たすので[3,4]。"
+  },
+  {
+    "id": 39,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "list(zip([1, 2], ['a', 'b']))",
+    "choices": [
+      "[1, 2, 'a', 'b']",
+      "[(1, 'a'), (2, 'b')]",
+      "{1: 'a', 2: 'b'}",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "zip()は複数のイテラブルの同じ位置の要素をタプルにまとめる。zip([1,2],['a','b'])→(1,'a'),(2,'b')をlist()でリスト化すると[(1,'a'),(2,'b')]。"
+  },
+  {
+    "id": 40,
+    "question": "次のコードの実行結果として正しいものを選びなさい。",
+    "code": "from functools import reduce\n\nprint(reduce(lambda x, y: x + y, [1, 2, 3, 4]))",
+    "choices": [
+      "4",
+      "10",
+      "24",
+      "エラー"
+    ],
+    "answer": 2,
+    "explanation": "reduce()は左から順に関数を累積適用する。((1+2)+3)+4=10。全要素の積なら1×2×3×4=24だが、今回は加算なので10。"
+  }
+]

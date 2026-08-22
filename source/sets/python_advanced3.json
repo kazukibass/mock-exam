@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "question": "Pythonのインタプリタの対話環境で、直前の式の評価結果が自動的に格納される変数は？",
+    "code": "",
+    "choices": ["res", "_", "last", "ans"],
+    "answer": 2,
+    "explanation": "対話モードでは、最後に評価された式の結果が特別な変数「_」に格納されます。"
+  },
+  {
+    "id": 2,
+    "question": "以下の出力結果として正しいものは？",
+    "code": "print(3 * 'un' + 'ium')",
+    "choices": ["3unium", "unununium", "ununiun", "エラー"],
+    "answer": 2,
+    "explanation": "文字列の乗算は、指定した回数だけ文字列を繰り返します。"
+  },
+  {
+    "id": 3,
+    "question": "リストに対するスライス操作 `a[:2]` の結果は？",
+    "code": "a = [10, 20, 30, 40]",
+    "choices": ["[10]", "[10, 20]", "[20, 30]", "[10, 20, 30]"],
+    "answer": 2,
+    "explanation": "スライスの終了インデックスは含まれないため、インデックス0と1の要素が抽出されます。"
+  },
+  {
+    "id": 4,
+    "question": "リストの `append()` メソッドの説明として正しいものは？",
+    "code": "",
+    "choices": ["リストの末尾に要素を追加する", "リストの先頭に要素を追加する", "別のリストを結合する", "指定位置に要素を挿入する"],
+    "answer": 1,
+    "explanation": "append()はリストの末尾に要素を一つ追加します。"
+  },
+  {
+    "id": 5,
+    "question": "リスト内包表記 `[x*2 for x in range(3)]` の実行結果は？",
+    "code": "",
+    "choices": ["[0, 2, 4]", "[2, 4, 6]", "[0, 1, 2]", "[1, 2, 3]"],
+    "answer": 1,
+    "explanation": "range(3)は0, 1, 2を生成します。それぞれを2倍したリストが作成されます。"
+  },
+  {
+    "id": 6,
+    "question": "タプルの特徴として正しいものは？",
+    "code": "",
+    "choices": ["要素の追加・削除が可能", "ミュータブルである", "イミュータブル（変更不可能）である", "要素を一つしか持てない"],
+    "answer": 3,
+    "explanation": "タプルは一度作成すると要素の変更ができないイミュータブルなシーケンスです。"
+  },
+  {
+    "id": 7,
+    "question": "辞書のキーとして利用できないものは？",
+    "code": "",
+    "choices": ["整数", "文字列", "タプル", "リスト"],
+    "answer": 4,
+    "explanation": "辞書のキーにはハッシュ化可能な（変更不可能な）型である必要があります。リストは変更可能なためキーにできません。"
+  },
+  {
+    "id": 8,
+    "question": "set（集合）型の説明として正しいものは？",
+    "code": "",
+    "choices": ["順序が保証される", "重複する要素を保持できる", "要素の重複を許さない", "インデックスでアクセスできる"],
+    "answer": 3,
+    "explanation": "集合は重複を排除し、順序を持たないデータの集まりです。"
+  },
+  {
+    "id": 9,
+    "question": "if文で `elif` を使う目的は？",
+    "code": "",
+    "choices": ["例外処理のため", "条件分岐を連続して行うため", "ループを中断するため", "変数を初期化するため"],
+    "answer": 2,
+    "explanation": "elifは「そうでなく、もし〜なら」という複数の条件分岐を連ねる際に使用します。"
+  },
+  {
+    "id": 10,
+    "question": "forループで要素のインデックスと値を同時に取得する関数は？",
+    "code": "",
+    "choices": ["range()", "enumerate()", "zip()", "index()"],
+    "answer": 2,
+    "explanation": "enumerate()を使うと、ループ内でカウンタ（インデックス）と値の両方を取り出せます。"
+  },
+  {
+    "id": 11,
+    "question": "range関数 `range(1, 6, 2)` が生成する値は？",
+    "code": "",
+    "choices": ["1, 2, 3, 4, 5", "1, 3, 5", "1, 4", "2, 4, 6"],
+    "answer": 2,
+    "explanation": "range(start, stop, step)は、1から始まり2ずつ増えて6未満までの値（1, 3, 5）を生成します。"
+  },
+  {
+    "id": 12,
+    "question": "関数の引数で、デフォルト値を持つ引数の定義として正しいものは？",
+    "code": "",
+    "choices": ["def func(a=1, b):", "def func(a, b=1):", "def func(a=1, b=2):", "どれでもよい"],
+    "answer": 2,
+    "explanation": "デフォルト引数は、必須の引数の後ろに記述しなければなりません。"
+  },
+  {
+    "id": 13,
+    "question": "キーワード引数での呼び出し方として正しいものは？",
+    "code": "def greet(name, msg='Hello'):",
+    "choices": ["greet(msg='Hi', 'John')", "greet('John', name='Bob')", "greet(name='John', msg='Hi')", "greet('John', 'Bob', name='Hi')"],
+    "answer": 3,
+    "explanation": "キーワード引数は、名前を指定して値を渡します。キーワード引数の後ろに位置引数を置くことはできません。"
+  },
+  {
+    "id": 14,
+    "question": "ラムダ関数 `lambda x: x * 2` の説明として正しいものは？",
+    "code": "",
+    "choices": ["複数の文を実行できる", "名前を持つ関数を定義する", "名前を持たない小さな関数を作成する", "クラスを定義する"],
+    "answer": 3,
+    "explanation": "lambdaは名前を持たない、一行で記述可能な小さな関数を作成します。"
+  },
+  {
+    "id": 15,
+    "question": "リストの `pop(i)` メソッドは何をするか？",
+    "code": "",
+    "choices": ["インデックス i の要素を削除して返す", "要素 i を追加する", "リストをソートする", "リストを空にする"],
+    "answer": 1,
+    "explanation": "pop(i)は指定したインデックスの要素を取り出し、削除します。"
+  },
+  {
+    "id": 16,
+    "question": "リストの `clear()` メソッドの動作は？",
+    "code": "",
+    "choices": ["リストの最初の要素を削除する", "リストの最後の要素を削除する", "リストの全要素を削除する", "リストをコピーする"],
+    "answer": 3,
+    "explanation": "clear()はリストを空にします。"
+  },
+  {
+    "id": 17,
+    "question": "辞書の `items()` メソッドが返すものは？",
+    "code": "",
+    "choices": ["キーのリスト", "値のリスト", "キーと値のペアのビュー", "辞書の長さ"],
+    "answer": 3,
+    "explanation": "items()は辞書のキーと値のペアをタプルとして扱うビューオブジェクトを返します。"
+  },
+  {
+    "id": 18,
+    "question": "シーケンスの要素を連結するための演算子は？",
+    "code": "",
+    "choices": ["+", "*", "/", "%"],
+    "answer": 1,
+    "explanation": "+演算子を用いると、リストやタプル、文字列を連結できます。"
+  },
+  {
+    "id": 19,
+    "question": "条件式 `not (a and b)` と等価なものは？",
+    "code": "",
+    "choices": ["not a or not b", "not a and not b", "a or b", "not a and b"],
+    "answer": 1,
+    "explanation": "ド・モルガンの法則により、`not (A and B)` は `not A or not B` と等価です。"
+  },
+  {
+    "id": 20,
+    "question": "制御構造の中で、ループを即座に終了するキーワードは？",
+    "code": "",
+    "choices": ["continue", "pass", "break", "return"],
+    "answer": 3,
+    "explanation": "breakはループ処理をその場で終了させます。"
+  },
+  {
+    "id": 21,
+    "question": "モジュールをインポートする `from math import *` の意味は？",
+    "code": "",
+    "choices": ["mathモジュールをmathという名前で使う", "math内の全てを現在の名前空間にインポートする", "mathモジュールをロードするが名前空間には影響しない", "mathモジュールの特定の関数だけをインポートする"],
+    "answer": 2,
+    "explanation": "import * は、モジュール内のすべての公開属性を直接インポートします。"
+  },
+  {
+    "id": 22,
+    "question": "`sys.path` がリストとして保持しているものは？",
+    "code": "",
+    "choices": ["現在開いているファイル名", "モジュールの探索パス", "環境変数", "コマンドの履歴"],
+    "answer": 2,
+    "explanation": "sys.pathには、モジュールを検索するディレクトリのパスが格納されています。"
+  },
+  {
+    "id": 23,
+    "question": "f-stringにおいて、値を右寄せで幅10にする記述は？",
+    "code": "val = 10",
+    "choices": ["f'{val:10}'", "f'{val:<10}'", "f'{val:>10}'", "f'{val:^10}'"],
+    "answer": 3,
+    "explanation": "> は右寄せを指定するフォーマット指定子です。"
+  },
+  {
+    "id": 24,
+    "question": "ファイルを開くときのモード 'w' の意味は？",
+    "code": "",
+    "choices": ["読み込み用", "書き込み用（上書き）", "追記用", "バイナリモード"],
+    "answer": 2,
+    "explanation": "w は write の略で、ファイルが存在する場合は上書き、存在しない場合は新規作成します。"
+  },
+  {
+    "id": 25,
+    "question": "例外処理で、複数の例外を捕捉する構文として正しいものは？",
+    "code": "",
+    "choices": ["except (TypeError, ValueError):", "except TypeError or ValueError:", "except TypeError, ValueError:", "try except TypeError, ValueError"],
+    "answer": 1,
+    "explanation": "複数の例外をキャッチするには、括弧で囲んだタプルで例外を指定します。"
+  },
+  {
+    "id": 26,
+    "question": "ユーザー定義例外を作成するために継承すべきクラスは？",
+    "code": "",
+    "choices": ["BaseException", "Exception", "Error", "SystemExit"],
+    "answer": 2,
+    "explanation": "ユーザー定義の例外は、Exceptionクラスを継承するのが一般的です。"
+  },
+  {
+    "id": 27,
+    "question": "クラス定義において、メソッドの第一引数に慣習として使われる名前は？",
+    "code": "",
+    "choices": ["this", "self", "me", "cls"],
+    "answer": 2,
+    "explanation": "インスタンスメソッドの第一引数には、慣習的に self が使用されます。"
+  },
+  {
+    "id": 28,
+    "question": "クラス変数とインスタンス変数の説明として正しいものは？",
+    "code": "",
+    "choices": ["クラス変数はインスタンス間で共有される", "インスタンス変数はクラス間で共有される", "クラス変数はインスタンス毎に異なる", "インスタンス変数は定義できない"],
+    "answer": 1,
+    "explanation": "クラス定義内で定義されたクラス変数は、そのクラスから作られた全インスタンスで共有されます。"
+  },
+  {
+    "id": 29,
+    "question": "標準ライブラリ `math.floor(3.9)` の結果は？",
+    "code": "",
+    "choices": ["3.0", "4.0", "3", "4"],
+    "answer": 3,
+    "explanation": "floorは小数点以下を切り捨て、整数を返します。"
+  },
+  {
+    "id": 30,
+    "question": "ファイルパスの操作で使われるモジュールは？",
+    "code": "",
+    "choices": ["os.path", "math", "re", "sys"],
+    "answer": 1,
+    "explanation": "os.path はファイルパスの分解や結合などを行うためのモジュールです。"
+  },
+  {
+    "id": 31,
+    "question": "正規表現で `re.findall()` は何を返すか？",
+    "code": "",
+    "choices": ["マッチしたオブジェクト", "マッチした文字列のリスト", "マッチした位置", "ブール値"],
+    "answer": 2,
+    "explanation": "findall() は、パターンにマッチしたすべての文字列をリストとして返します。"
+  },
+  {
+    "id": 32,
+    "question": "`datetime.date.today()` の戻り値の型は？",
+    "code": "",
+    "choices": ["datetime型", "date型", "str型", "time型"],
+    "answer": 2,
+    "explanation": "date.today() は date オブジェクトを返します。"
+  },
+  {
+    "id": 33,
+    "question": "仮想環境を作成する標準的なコマンドは？",
+    "code": "",
+    "choices": ["python -m venv <name>", "pip install venv", "create-env <name>", "venv start"],
+    "answer": 1,
+    "explanation": "Python 3.3以降、標準で venv モジュールが提供されています。"
+  },
+  {
+    "id": 34,
+    "question": "パッケージとして認識されるディレクトリに必要なファイルは？",
+    "code": "",
+    "choices": ["__init__.py", "main.py", "package.py", "config.py"],
+    "answer": 1,
+    "explanation": "__init__.py が存在することで、そのディレクトリはPythonパッケージとして扱われます。"
+  },
+  {
+    "id": 35,
+    "question": "リストの `sort()` メソッドの説明は？",
+    "code": "",
+    "choices": ["新しいリストを返す", "元のリストを昇順に並べ替える", "元のリストを逆順にする", "エラーを返す"],
+    "answer": 2,
+    "explanation": "sort()メソッドはリストを破壊的に（その場で）昇順に並べ替えます。"
+  },
+  {
+    "id": 36,
+    "question": "辞書の `get(key, default)` メソッドの利点は？",
+    "code": "",
+    "choices": ["キーが存在しない場合にエラーにならない", "キーを追加できる", "辞書をコピーする", "値を削除する"],
+    "answer": 1,
+    "explanation": "get()メソッドはキーが存在しない場合にNoneまたは指定したデフォルト値を返すため、KeyErrorを回避できます。"
+  },
+  {
+    "id": 37,
+    "question": "try...except...finally の finally ブロックはいつ実行される？",
+    "code": "",
+    "choices": ["例外発生時のみ", "例外が起きなかった時のみ", "例外の有無に関わらず実行される", "exceptブロックの後に実行される"],
+    "answer": 3,
+    "explanation": "finallyブロックは、tryブロックの終了後、例外の発生有無に関わらず必ず実行されます。"
+  },
+  {
+    "id": 38,
+    "question": "文字列の `split()` メソッドの戻り値は？",
+    "code": "'a,b,c'.split(',')",
+    "choices": ["['a', 'b', 'c']", "'abc'", "('a', 'b', 'c')", "('a,b,c')"],
+    "answer": 1,
+    "explanation": "split()は指定した区切り文字で文字列を分割し、リストを返します。"
+  },
+  {
+    "id": 39,
+    "question": "PEP 8において、インデントの推奨は？",
+    "code": "",
+    "choices": ["タブ1つ", "スペース2つ", "スペース4つ", "スペース8つ"],
+    "answer": 3,
+    "explanation": "PEP 8ではインデントに1レベルあたり4スペースを使用することが推奨されています。"
+  },
+  {
+    "id": 40,
+    "question": "以下の `zip` の実行結果はどうなるか？",
+    "code": "list(zip(['a', 'b'], [1, 2]))",
+    "choices": ["['a', 'b', 1, 2]", "[('a', 1), ('b', 2)]", "[('a', 'b'), (1, 2)]", "エラー"],
+    "answer": 2,
+    "explanation": "zipは各シーケンスの要素をまとめたタプルのイテレータを作成します。"
+  }
+]

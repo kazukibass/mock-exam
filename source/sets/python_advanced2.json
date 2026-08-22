@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "question": "整数型を表すものはどれか。",
+    "code": "",
+    "choices": ["float", "int", "str", "bool"],
+    "answer": 2,
+    "explanation": "Pythonの整数型はint。float（浮動小数点数）、str（文字列）、bool（真偽値）はそれぞれ別の型。boolはintのサブクラスだが整数型の代表はint。"
+  },
+  {
+    "id": 2,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(type(3.14))",
+    "choices": ["<class 'int'>", "<class 'str'>", "<class 'float'>", "<class 'bool'>"],
+    "answer": 3,
+    "explanation": "3.14は小数なのでfloat型。type()はオブジェクトの型オブジェクトを返し、print()すると<class '型名'>の形式で表示される。"
+  },
+  {
+    "id": 3,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(\"Py\" + \"thon\")",
+    "choices": ["Py thon", "Python", "Py+thon", "エラー"],
+    "answer": 2,
+    "explanation": "文字列同士の+演算子は文字列の連結を行う。\"Py\"+\"thon\"は\"Python\"になる。スペースなしで結合されるため\"Py thon\"にはならない。"
+  },
+  {
+    "id": 4,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(10 // 3)",
+    "choices": ["3.333", "3", "4", "1"],
+    "answer": 2,
+    "explanation": "//は切り捨て除算（整数除算）。10÷3=3.333...の小数部を切り捨てて3を返す。通常の除算/なら3.3333...になる。"
+  },
+  {
+    "id": 5,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(2 ** 3)",
+    "choices": ["5", "6", "8", "9"],
+    "answer": 3,
+    "explanation": "**はべき乗演算子。2**3は2の3乗（2×2×2）で8。2*3=6（掛け算）や2+3=5（足し算）とは異なる。"
+  },
+  {
+    "id": 6,
+    "question": "論理積を表す演算子はどれか。",
+    "code": "",
+    "choices": ["or", "and", "not", "xor"],
+    "answer": 2,
+    "explanation": "andは論理積演算子で両方がTrueのときのみTrueを返す。orは論理和（どちらかがTrue）、notは否定。xorはPythonに演算子はなく^はビット排他的論理和。"
+  },
+  {
+    "id": 7,
+    "question": "代入演算子として正しいものはどれか。",
+    "code": "",
+    "choices": ["==", ":=", "=", "!="],
+    "answer": 3,
+    "explanation": "=は代入演算子で变数に値を代入する。==は等値比較演算子、:=はPython3.8以降の代入式（セイウチ演算子）、!=は不等価演算子。"
+  },
+  {
+    "id": 8,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "a = 5\na += 2\nprint(a)",
+    "choices": ["5", "2", "7", "エラー"],
+    "answer": 3,
+    "explanation": "+=は加算代入演算子。a+=2はa=a+2と同じ。a=5から2を加算してa=7になる。"
+  },
+  {
+    "id": 9,
+    "question": "False として評価されるものはどれか。",
+    "code": "",
+    "choices": ["\"False\"", "1", "[]", "\" \""],
+    "answer": 3,
+    "explanation": "[]（空リスト）はFalsyな値。\"False\"（文字列は空でなければTruthy）、1（0以外の整数はTruthy）、\" \"（空白1文字はTruthy）はいずれもTrueとして評価される。"
+  },
+  {
+    "id": 10,
+    "question": "コメントを表す記号はどれか。",
+    "code": "",
+    "choices": ["//", "#", "/*", "--"],
+    "answer": 2,
+    "explanation": "Pythonのコメントは#記号。#以降の行末までがコメントになる。//はC言語・JS、/*...*/はブロックコメント（Pythonにはない）、--はSQLのコメント。"
+  },
+  {
+    "id": 11,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(len(\"Python\"))",
+    "choices": ["5", "6", "7", "エラー"],
+    "answer": 2,
+    "explanation": "'Python'はP,y,t,h,o,nの6文字。len()は文字列の文字数を返す。"
+  },
+  {
+    "id": 12,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(abs(-8))",
+    "choices": ["-8", "8", "0", "エラー"],
+    "answer": 2,
+    "explanation": "abs()は絶対値を返す組み込み関数。abs(-8)は8。正の数にはそのまま返す。"
+  },
+  {
+    "id": 13,
+    "question": "「以上」を表す比較演算子はどれか。",
+    "code": "",
+    "choices": [">", "<=", ">=", "=="],
+    "answer": 3,
+    "explanation": ">=は「以上」（greater than or equal to）を表す比較演算子。>は「より大きい」、<=は「以下」、==は「等しい」。"
+  },
+  {
+    "id": 14,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(5 == 5)",
+    "choices": ["True", "False", "5", "エラー"],
+    "answer": 1,
+    "explanation": "==は等値比較演算子。5==5はTrueを返す。=（代入）と==（比較）を混同しないよう注意。"
+  },
+  {
+    "id": 15,
+    "question": "文字列を整数へ変換する関数はどれか。",
+    "code": "",
+    "choices": ["str()", "float()", "int()", "chr()"],
+    "answer": 3,
+    "explanation": "int()は文字列や浮動小数点数を整数に変換する。str()は文字列に変換、float()は浮動小数点数に変換、chr()はUnicodeコードポイントから文字に変換する。"
+  },
+  {
+    "id": 16,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(bool(0))",
+    "choices": ["True", "False", "0", "エラー"],
+    "answer": 2,
+    "explanation": "0はFalsyな値。bool(0)はFalseを返す。0以外の整数はTruthy（bool(1)はTrue）。空文字列、空リスト、NoneもFalsy。"
+  },
+  {
+    "id": 17,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(round(3.6))",
+    "choices": ["3", "3.6", "4", "5"],
+    "answer": 3,
+    "explanation": "round()は四捨五入を行う。3.6は0.5以上の小数部なので繰り上がり4になる。ただし銀行丸め（偶数丸め）の場合round(2.5)=2になる点に注意。"
+  },
+  {
+    "id": 18,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(max([2, 5, 1]))",
+    "choices": ["1", "2", "5", "エラー"],
+    "answer": 3,
+    "explanation": "max()はイテラブルや引数の中の最大値を返す。max([2,5,1])はリストの中の最大値5を返す。"
+  },
+  {
+    "id": 19,
+    "question": "複数行文字列を記述するために使用できるものはどれか。",
+    "code": "",
+    "choices": ["'''", "##", "//", "::"],
+    "answer": 1,
+    "explanation": "Pythonでは'''（シングルクォート3つ）または\"\"\"（ダブルクォート3つ）で複数行にわたる文字列を定義できる。ドキュメント文字列（docstring）にも使われる。"
+  },
+  {
+    "id": 20,
+    "question": "文字列フォーマットに使用できるメソッドはどれか。",
+    "code": "",
+    "choices": ["format()", "build()", "make()", "create()"],
+    "answer": 1,
+    "explanation": "str.format()は文字列の{}プレースホルダーに値を埋め込むフォーマットメソッド。\"Hello {}\".format('World')→'Hello World'。現在はf文字列も広く使われる。"
+  },
+  {
+    "id": 21,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "print(\"abc\".upper())",
+    "choices": ["abc", "ABC", "Abc", "エラー"],
+    "answer": 2,
+    "explanation": "upper()は文字列の全文字を大文字に変換するメソッド。\"abc\"→\"ABC\"。元の文字列は変更されない（イミュータブル）。"
+  },
+  {
+    "id": 22,
+    "question": "リストを表す記号はどれか。",
+    "code": "",
+    "choices": ["()", "[]", "{}", "<>"],
+    "answer": 2,
+    "explanation": "[]はリストを表す。()はタプルや関数呼び出し、{}は辞書またはセット、<>はPythonでは使われない（比較演算子ではない）。"
+  },
+  {
+    "id": 23,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "a = [1, 2]\na.append(3)\nprint(a)",
+    "choices": ["[1, 2]", "[3]", "[1, 2, 3]", "エラー"],
+    "answer": 3,
+    "explanation": "append()はリストの末尾に要素を追加する（破壊的操作）。[1,2]に3を追加して[1,2,3]になる。"
+  },
+  {
+    "id": 24,
+    "question": "辞書のキー一覧を取得するメソッドはどれか。",
+    "code": "",
+    "choices": ["keys()", "values()", "items()", "get()"],
+    "answer": 1,
+    "explanation": "keys()は辞書の全キーをdict_keys型で返す。values()は全値、items()は(キー,値)のペア一覧、get()は指定キーの値を返す。"
+  },
+  {
+    "id": 25,
+    "question": "重複した要素を保持しないデータ型はどれか。",
+    "code": "",
+    "choices": ["list", "tuple", "set", "dict"],
+    "answer": 3,
+    "explanation": "set（集合型）は重複を許さない。{1,1,2,3}={1,2,3}になる。list/tupleは重複あり、dictはキーが重複不可だが値は重複可。"
+  },
+  {
+    "id": 26,
+    "question": "タプルの特徴として正しいものはどれか。",
+    "code": "",
+    "choices": ["要素を追加できる", "内容を変更できない", "キーと値を持つ", "重複した要素を持てない"],
+    "answer": 2,
+    "explanation": "タプルはイミュータブル（変更不可）なシーケンス型。一度作成した後は要素の追加・変更・削除ができない。辞書のキーとして使える（リストはキーにできない）。"
+  },
+  {
+    "id": 27,
+    "question": "次のコードの実行結果として正しいものはどれか。",
+    "code": "a = {\"x\": 1}\nprint(a[\"x\"])",
+    "choices": ["x", "0", "1", "エラー"],
+    "answer": 3,
+    "explanation": "辞書のキー\"x\"に対応する値は1。a[\"x\"]で値1にアクセスできる。\"x\"（キー名）ではなく値の1が返る。"
+  },
+  {
+    "id": 28,
+    "question": "辞書のキーが存在しない場合でも安全に値を取得できるメソッドはどれか。",
+    "code": "",
+    "choices": ["get()", "find()", "index()", "pop()"],
+    "answer": 1,
+    "explanation": "get(key, default=None)はキーが存在しない場合にKeyErrorではなくNone（またはデフォルト値）を返す安全なアクセス方法。find()はstrのメソッド、index()はリストのメソッド。"
+  },
+  {
+    "id": 29,
+    "question": "条件分岐で使用するキーワードはどれか。",
+    "code": "",
+    "choices": ["switch", "case", "if", "when"],
+    "answer": 3,
+    "explanation": "Pythonの条件分岐はif/elif/else。switchはC言語・JavaScriptの構文（Python3.10以降はmatch/caseがある）、whenはRubyなど他言語のキーワード。"
+  },
+  {
+    "id": 30,
+    "question": "繰り返し処理に使用する文はどれか。",
+    "code": "",
+    "choices": ["repeat", "for", "loop", "iterate"],
+    "answer": 2,
+    "explanation": "Pythonの繰り返し処理はforまたはwhile。for文はイテラブルの各要素に対して処理を繰り返す。repeat/loop/iterateはPythonのキーワードではない。"
+  },
+  {
+    "id": 31,
+    "question": "次のコードを実行したとき、最後に出力される値はどれか。",
+    "code": "for i in range(3):\n    print(i)",
+    "choices": ["1", "2", "3", "0"],
+    "answer": 2,
+    "explanation": "range(3)は0,1,2を生成する。順番に0,1,2と出力されるので最後に出力される値は2。range(3)は3を含まない点に注意。"
+  },
+  {
+    "id": 32,
+    "question": "関数を定義するためのキーワードはどれか。",
+    "code": "",
+    "choices": ["function", "func", "def", "define"],
+    "answer": 3,
+    "explanation": "Pythonで関数を定義するにはdefキーワードを使う。functionはJavaScript/PHP、funcはGo/Swift、defineはLispなど他言語のキーワード。"
+  },
+  {
+    "id": 33,
+    "question": "関数から値を返すためのキーワードはどれか。",
+    "code": "",
+    "choices": ["break", "yield", "return", "pass"],
+    "answer": 3,
+    "explanation": "returnは関数から値を返すキーワード。breakはループ脱出、yieldはジェネレータで値を生成、passは何もしない文。"
+  },
+  {
+    "id": 34,
+    "question": "何も処理を行わない文として使用されるキーワードはどれか。",
+    "code": "",
+    "choices": ["continue", "break", "pass", "stop"],
+    "answer": 3,
+    "explanation": "passは何もしないプレースホルダー文。空のクラス定義やif文の中に構文上必要な時に使う。continueは次のループへ、breakはループ脱出、stopはPythonのキーワードではない。"
+  },
+  {
+    "id": 35,
+    "question": "クラスを定義するためのキーワードはどれか。",
+    "code": "",
+    "choices": ["class", "object", "struct", "type"],
+    "answer": 1,
+    "explanation": "Pythonでクラスを定義するにはclassキーワードを使う。objectはクラスの基底クラス、structはCやRustのキーワード、type()は型を確認する組み込み関数。"
+  },
+  {
+    "id": 36,
+    "question": "次のクラス A のインスタンスを生成する方法として正しいものはどれか。",
+    "code": "class A:\n    pass",
+    "choices": ["A.new()", "new A()", "A()", "class A()"],
+    "answer": 3,
+    "explanation": "Pythonではクラス名に()を付けて呼び出すとインスタンスが生成される。A()はA.__init__()を呼び出してインスタンスを作る。newキーワードを使うのはJava/C++などの他言語。"
+  },
+  {
+    "id": 37,
+    "question": "平方根などの数学関数を利用する際によく使用される標準ライブラリはどれか。",
+    "code": "",
+    "choices": ["random", "math", "os", "sys"],
+    "answer": 2,
+    "explanation": "mathモジュールは数学関数を提供する標準ライブラリ。math.sqrt()（平方根）、math.pi（円周率）、math.floor()（切り捨て）などを含む。"
+  },
+  {
+    "id": 38,
+    "question": "乱数を生成するために利用する標準ライブラリはどれか。",
+    "code": "",
+    "choices": ["time", "pathlib", "random", "csv"],
+    "answer": 3,
+    "explanation": "randomモジュールは乱数生成の標準ライブラリ。random.randint()、random.random()、random.choice()、random.shuffle()などを提供する。"
+  },
+  {
+    "id": 39,
+    "question": "現在の作業ディレクトリの取得など、OSに関する機能を提供する標準ライブラリはどれか。",
+    "code": "",
+    "choices": ["os", "math", "statistics", "decimal"],
+    "answer": 1,
+    "explanation": "osモジュールはOS（オペレーティングシステム）に依存する機能を提供する。os.getcwd()（現在ディレクトリ取得）、os.makedirs()（ディレクトリ作成）、os.path（パス操作）などを含む。"
+  },
+  {
+    "id": 40,
+    "question": "次のコードの実行結果としてあり得るものはどれか。",
+    "code": "import random\n\nprint(random.randint(1, 3))",
+    "choices": ["0", "4", "2", "3.5"],
+    "answer": 3,
+    "explanation": "random.randint(a, b)はa以上b以下（両端含む）の整数をランダムに返す。randint(1,3)なら1、2、3のいずれか。0は範囲外、4は範囲外、3.5は整数でないため、選択肢の中で正しいのは2のみ。"
+  }
+]
