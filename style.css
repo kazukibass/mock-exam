@@ -194,3 +194,699 @@ footer { text-align: center; margin: 28px 0 0; color: #6b7280; font-size: .95rem
 
   .container { flex: 1 1 auto; }
 }
+
+/* ==========================================================================
+   シート出力機能（A4白黒印刷・自動生成・Word/Excel対応）
+   ========================================================================== */
+
+.sheets-lead {
+  margin-bottom: 20px;
+}
+
+.sheets-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.sheets-step {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #dbe3f0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.sheets-step-action {
+  border-color: #c7d2fe;
+  background: linear-gradient(145deg, #ffffff 0%, #eef2ff 100%);
+}
+
+.sheets-step-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.sheets-step-heading h2 {
+  margin: 0 0 3px;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.sheets-step-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.sheets-step-number {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4338ca;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+
+.sheets-field-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #374151;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.sheets-select-wide {
+  width: 100%;
+  min-height: 42px;
+}
+
+.sheet-output-options {
+  display: grid;
+  gap: 7px;
+}
+
+.sheet-output-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.sheet-output-option:has(input:checked) {
+  border-color: #818cf8;
+  background: #eef2ff;
+}
+
+.sheet-output-option input {
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  accent-color: #4338ca;
+}
+
+.sheet-output-option strong,
+.sheet-output-option small {
+  display: block;
+}
+
+.sheet-output-option strong {
+  color: #1f2937;
+  font-size: 0.84rem;
+}
+
+.sheet-output-option small {
+  margin-top: 2px;
+  color: #64748b;
+  font-size: 0.72rem;
+}
+
+.sheet-primary-action {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.sheet-primary-action .button {
+  min-height: 46px;
+  font-weight: 800;
+}
+
+.sheet-primary-action .button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sheet-output-summary {
+  color: #475569;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.sheet-secondary-exports {
+  margin-top: 16px;
+  border-top: 1px solid #dbe3f0;
+  padding-top: 12px;
+}
+
+.sheet-secondary-exports summary {
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sheet-secondary-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.sheet-secondary-actions span {
+  color: #64748b;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.sheets-preview-controls {
+  position: sticky;
+  top: 8px;
+  z-index: 5;
+}
+
+.sheets-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sheets-preview-heading > div:first-child strong,
+.sheets-preview-heading > div:first-child span {
+  display: block;
+}
+
+.sheets-preview-heading > div:first-child span {
+  margin-top: 2px;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.sheets-control-card {
+  margin-bottom: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1px solid #e0e7ff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sheets-control-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sheets-control-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.sheets-select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.92rem;
+  background: #ffffff;
+  color: #1f2937;
+  font-family: inherit;
+  outline: none;
+}
+
+.sheets-tab-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #c7d2fe;
+  background: #f8faff;
+  color: #4338ca;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.sheets-tab-btn:hover {
+  background: #eef2ff;
+}
+
+.sheets-tab-btn.active {
+  background: #4338ca;
+  color: #ffffff;
+  border-color: #4338ca;
+  font-weight: bold;
+}
+
+.sheets-btn-sm {
+  padding: 5px 10px;
+  font-size: 0.84rem;
+  border-radius: 8px;
+}
+
+/* β版バッジ */
+.beta-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #475569;
+  color: #f8fafc;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  margin-left: 3px;
+  line-height: 1.2;
+}
+
+/* プレビュー表示エリア */
+.sheets-preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 0 40px;
+}
+
+/* A4用紙シミュレート */
+.a4-page {
+  background: #ffffff;
+  width: 210mm;
+  min-height: 297mm;
+  height: 297mm;
+  max-height: 297mm;
+  padding: 15mm 18mm 12mm 18mm;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  color: #000000;
+  font-family: "Segoe UI", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+.a4-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ヘッダー */
+.exam-header {
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.exam-title-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  gap: 16px;
+}
+
+.exam-main-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  margin: 0;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.exam-title-right {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.exam-sheet-type {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+.meta-score-box {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border: 1px solid #000000;
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.score-input-line {
+  display: inline-block;
+  min-width: 3.2em;
+  text-align: center;
+  border-bottom: 1px solid #000000;
+  outline: none;
+}
+
+.exam-meta-line {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 28px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  margin-bottom: 6px;
+}
+
+.meta-date, .meta-name {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.date-space-year {
+  display: inline-block;
+  min-width: 4.2em;
+  text-align: center;
+  border-bottom: 1px solid #000000;
+  outline: none;
+}
+
+.date-space-month, .date-space-day {
+  display: inline-block;
+  min-width: 2.2em;
+  text-align: center;
+  border-bottom: 1px solid #000000;
+  outline: none;
+}
+
+.name-space {
+  display: inline-block;
+  min-width: 13em;
+  border-bottom: 1px solid #000000;
+  outline: none;
+}
+
+.exam-notes {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  margin: 2px 0 6px;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+  color: #111111;
+  border-top: 1px dashed #666666;
+  padding-top: 4px;
+}
+
+/* 問題用紙スタイル */
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.questions-container.layout-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16mm;
+  row-gap: 10px;
+}
+
+.question-block {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  font-size: calc(0.86rem * var(--font-scale, 1.0));
+  line-height: 1.42;
+  border-bottom: 1px dotted #c8c8c8;
+  padding-bottom: 5px;
+  margin-bottom: 6px;
+}
+
+.question-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.q-head {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.q-num {
+  margin-right: 5px;
+}
+
+.q-code-frame {
+  border: 1px solid #000000;
+  background: #ffffff;
+  padding: 3px 6px;
+  margin: 2px 0 4px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: calc(0.79rem * var(--font-scale, 1.0));
+  line-height: 1.3;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #000000;
+}
+
+.q-choices-list {
+  margin: 2px 0 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+}
+
+.q-choice-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 44%;
+  font-size: calc(0.84rem * var(--font-scale, 1.0));
+  line-height: 1.32;
+}
+
+.choice-symbol {
+  font-weight: bold;
+}
+
+/* 解答用紙スタイル */
+.answer-symmetry-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16mm;
+  margin-top: 6px;
+  flex: 1;
+}
+
+.answer-column {
+  flex: 1;
+}
+
+.answer-symmetry-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.answer-symmetry-table th,
+.answer-symmetry-table td {
+  border: 1px solid #000000;
+  height: 31px;
+  vertical-align: middle;
+}
+
+.answer-symmetry-table th {
+  background: #f8fafc;
+  font-weight: bold;
+  height: 24px;
+  font-size: 0.83rem;
+}
+
+.th-qnum { width: 45%; }
+.th-ans { width: 55%; }
+.td-qnum { font-weight: bold; }
+.td-ans-key {
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+
+/* 解説シートスタイル */
+.explanation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: calc(0.85rem * var(--font-scale, 1.0));
+  line-height: 1.45;
+}
+
+.explanation-table th,
+.explanation-table td {
+  border: 1px solid #000000;
+  padding: 5px 7px;
+  vertical-align: top;
+}
+
+.explanation-table th {
+  background: #f8fafc;
+  font-weight: bold;
+  text-align: center;
+}
+
+.exp-col-num { width: 11%; text-align: center; font-weight: bold; }
+.exp-col-ans { width: 11%; text-align: center; font-weight: bold; font-size: 1.05rem; }
+.exp-col-content { width: 26%; word-break: break-word; }
+.exp-col-text { width: 52%; word-break: break-word; }
+
+/* ページフッター */
+.page-footer {
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #333333;
+  margin-top: 6px;
+  flex-shrink: 0;
+  border-top: 1px dotted #ccc;
+  padding-top: 3px;
+}
+
+/* ==========================================================================
+   印刷用メディアクエリ (@media print)
+   ========================================================================== */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* SPA全体のナビや余計なUIを非表示 */
+  .header-bar,
+  .hamburger-btn,
+  .menu-overlay,
+  .side-menu,
+  footer,
+  .sheets-control-card,
+  .card:not(#view),
+  .toast,
+  #problem-detail-modal,
+  header,
+  nav {
+    display: none !important;
+  }
+
+  .sheets-flow,
+  .sheets-lead,
+  .no-print {
+    display: none !important;
+  }
+
+  /* 共通ナビ（kz-shell）がもしあれば非表示 */
+  header.kz-shell-header,
+  .kz-shell-wrap {
+    display: none !important;
+  }
+
+  .container {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .card#view {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .sheets-preview-area {
+    padding: 0 !important;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  .a4-page {
+    width: 210mm !important;
+    height: 296mm !important;
+    max-height: 296mm !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 13mm 18mm 8mm 18mm !important;
+    page-break-after: always;
+    break-after: page;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .a4-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .question-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .answer-column {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .explanation-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .sheets-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .sheets-preview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 720px) {
+  .sheets-step {
+    padding: 15px;
+  }
+
+  .sheets-preview-controls {
+    position: static;
+  }
+
+  .sheets-tab-btn {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  .sheets-preview-area {
+    align-items: flex-start;
+    overflow-x: auto;
+  }
+}
