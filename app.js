@@ -1131,6 +1131,35 @@ JSON配列、または次の形式のオブジェクトのどちらかで出力�
     else if (mode === "explanation") renderSheetExplanationPages(container, activeSheetSet);
   }
 
+  // 印刷時は、プレビュー枠とその祖先だけを残して他を隠す。
+  // 共通シェル(shell.js)が body 直下に要素を差し込んでも、
+  // それが余計な用紙として出力されるのを防ぐ。
+  const PRINT_HIDDEN_CLASS = "print-isolate-hidden";
+  const PRINT_KEEP_CLASS = "print-isolate-keep";
+
+  function applyPrintIsolation() {
+    const container = document.getElementById("sheets-preview-container");
+    if (!container || !container.querySelector(".a4-page")) return;
+
+    let node = container;
+    while (node.parentElement) {
+      const parent = node.parentElement;
+      Array.from(parent.children).forEach((sibling) => {
+        if (sibling !== node) sibling.classList.add(PRINT_HIDDEN_CLASS);
+      });
+      parent.classList.add(PRINT_KEEP_CLASS);
+      node = parent;
+    }
+  }
+
+  function clearPrintIsolation() {
+    document.querySelectorAll("." + PRINT_HIDDEN_CLASS).forEach((el) => el.classList.remove(PRINT_HIDDEN_CLASS));
+    document.querySelectorAll("." + PRINT_KEEP_CLASS).forEach((el) => el.classList.remove(PRINT_KEEP_CLASS));
+  }
+
+  window.addEventListener("beforeprint", applyPrintIsolation);
+  window.addEventListener("afterprint", clearPrintIsolation);
+
   function printSelectedSheets() {
     const container = document.getElementById("sheets-preview-container");
     const selected = Object.keys(SHEET_MODE_LABELS).filter((mode) => selectedSheetModes.has(mode));
