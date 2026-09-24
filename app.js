@@ -1597,8 +1597,8 @@ JSON配列、または次の形式のオブジェクトのどちらかで出力�
     const menu = document.getElementById("side-menu");
     const downloadBtn = document.getElementById("menu-download-prompt");
 
-    function openMenu() { menu.classList.add("open"); overlay.classList.add("open"); }
-    function closeMenu() { menu.classList.remove("open"); overlay.classList.remove("open"); }
+    function openMenu() { menu.classList.add("open"); menu.dataset.navState = "expanded"; overlay.classList.add("open"); }
+    function closeMenu() { menu.classList.remove("open"); menu.dataset.navState = "collapsed"; overlay.classList.remove("open"); }
 
     toggleBtn.addEventListener("click", openMenu);
     closeBtn.addEventListener("click", closeMenu);

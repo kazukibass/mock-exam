@@ -1,5 +1,8 @@
 :root {
   color-scheme: light;
+  --nav-state-duration: 120ms;
+  --nav-motion-duration: 220ms;
+  --nav-hit-target: 44px;
 }
 
 * { box-sizing: border-box; }
@@ -121,7 +124,7 @@ footer { text-align: center; margin: 28px 0 0; color: #6b7280; font-size: .95rem
   position: fixed; top: 0; right: -280px; width: 260px; max-width: 80vw; height: 100%;
   background: #ffffff; box-shadow: -12px 0 30px rgba(15,23,42,0.18);
   padding: 24px 20px; display: flex; flex-direction: column; gap: 10px;
-  transition: right .25s ease; z-index: 1500;
+  transition: right var(--nav-motion-duration) ease; z-index: 1500;
 }
 .side-menu.open { right: 0; }
 .menu-close {
